@@ -1,0 +1,27 @@
+plugins {
+    id 'java-library'
+    id "org.jetbrains.kotlin.jvm"
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+configurations {
+    provided
+}
+
+sourceSets {
+    main {
+        compileClasspath += configurations.provided
+    }
+}
+
+dependencies {
+    // coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2'
+
+    // hilt
+    implementation 'com.google.dagger:hilt-android:2.42'
+}
