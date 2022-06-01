@@ -8,7 +8,7 @@ import com.ashok.domain.entity.PokemonModel
 import com.ashok.domain.repository.PokemonRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -17,15 +17,15 @@ class PokemonRepositoryImpl @Inject constructor(
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
 ) : PokemonRepository {
 
-    override suspend fun fetchPokemonCollection(): Flow<ApiResult<List<PokemonModel>>> = flow {
-        remoteDataSource.fetchPokemonCollection().suspendMap { data ->
-            data.mapIndexed { index, pokemonEntity ->
+    override suspend fun fetchPokemonCollection(): Flow<ApiResult<List<PokemonModel>>> {
+        return flowOf(remoteDataSource.fetchPokemonCollection().suspendMap { pokemonEntity ->
+            pokemonEntity.results?.mapIndexed { index, result ->
                 val updatedList = withContext(defaultDispatcher) {
-                    val url = remoteDataSource.getPokemonImageUrl(index)
-                    pokemonEntity.toPokemonModel(url)
+                    val url = remoteDataSource.getPokemonImageUrl(index + 1)
+                    result.toPokemonModel(url)
                 }
                 updatedList
-            }
-        }
+            } ?: emptyList()
+        })
     }
 }

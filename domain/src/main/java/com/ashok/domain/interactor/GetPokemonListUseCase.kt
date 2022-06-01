@@ -6,7 +6,7 @@ import com.ashok.domain.repository.PokemonRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetPokemonList @Inject constructor(private val pokemonRepository: PokemonRepository) {
+class GetPokemonListUseCase @Inject constructor(private val pokemonRepository: PokemonRepository) {
 
     suspend operator fun invoke(): Flow<ApiResult<List<PokemonModel>>> {
         return pokemonRepository.fetchPokemonCollection()

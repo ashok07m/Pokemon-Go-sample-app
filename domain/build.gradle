@@ -1,27 +1,52 @@
 plugins {
-    id 'java-library'
-    id "org.jetbrains.kotlin.jvm"
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-}
+android {
+    compileSdk 31
 
-configurations {
-    provided
-}
+    defaultConfig {
+        minSdk 23
+        targetSdk 31
 
-sourceSets {
-    main {
-        compileClasspath += configurations.provided
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    packagingOptions {
+        resources.excludes += "DebugProbesKt.bin"
+    }
+
+    packagingOptions {
+        resources.excludes += "DebugProbesKt.bin"
     }
 }
 
 dependencies {
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+
     // coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2'
 
-    // hilt
-//    implementation 'com.google.dagger:hilt-android:2.41'
+    // Hilt DI
+    implementation "com.google.dagger:hilt-android:2.41"
+    kapt "com.google.dagger:hilt-compiler:2.41"
 }

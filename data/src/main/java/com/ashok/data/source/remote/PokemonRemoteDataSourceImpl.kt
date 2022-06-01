@@ -12,12 +12,12 @@ class PokemonRemoteDataSourceImpl @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : PokemonRemoteDataSource, BaseDataSource(ioDispatcher) {
 
-    override suspend fun fetchPokemonCollection(): ApiResult<List<PokemonEntity>> {
+    override suspend fun fetchPokemonCollection(): ApiResult<PokemonEntity> {
         return executeRequest { pokemonApiService.getPokemonSpecies() }
     }
 
     override suspend fun getPokemonImageUrl(id: Int): String {
-        return pokemonApiService.getPokemonImageUrlForId(id)
+        return PokemonApiService.getPokemonImageUrlForId(id)
     }
 
 }

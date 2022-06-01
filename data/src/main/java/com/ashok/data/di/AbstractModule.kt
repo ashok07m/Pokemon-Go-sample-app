@@ -22,7 +22,7 @@ abstract class AbstractModule {
 
     @Binds
     @Singleton
-    abstract fun bindGitReposRemoteSource(impl: PokemonRemoteDataSourceImpl): PokemonRemoteDataSource
+    abstract fun bindPokemonRemoteDataSource(impl: PokemonRemoteDataSourceImpl): PokemonRemoteDataSource
 
     @Binds
     @Singleton

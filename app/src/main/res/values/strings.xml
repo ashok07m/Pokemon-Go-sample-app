@@ -3,4 +3,6 @@
     <string name="label_pokemon">Pokemon</string>
     <string name="label_detail">Detail</string>
     <string name="label_retry">Retry</string>
+    <string name="error_no_internet">No internet available</string>
+    <string name="error_unable_to_load">Unable to fetch data from server. try again.</string>
 </resources>

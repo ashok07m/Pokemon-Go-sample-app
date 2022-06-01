@@ -8,12 +8,13 @@ interface PokemonApiService {
     companion object {
         const val BASE_URL = "https://pokeapi.co"
         const val ENDPOINT_POKEMON_SPECIES = "/api/v2/pokemon-species"
-        const val POKEMON_IMAGE_URL =
+        private const val POKEMON_IMAGE_URL =
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/%s.png"
+
+        fun getPokemonImageUrlForId(id: Int) = String.format(POKEMON_IMAGE_URL, id)
+
     }
 
     @GET(ENDPOINT_POKEMON_SPECIES)
-    suspend fun getPokemonSpecies(): Response<List<PokemonEntity>>
-
-    fun getPokemonImageUrlForId(id: Int) = String.format(POKEMON_IMAGE_URL, id)
+    suspend fun getPokemonSpecies(): Response<PokemonEntity>
 }
