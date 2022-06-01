@@ -34,7 +34,7 @@ class PokemonListAdapter constructor(val itemClickListener: (PokemonModel) -> Un
             with(binding) {
                 val index = adapterPosition + 1
                 txtName.text = StringBuilder().append(item.name).toString()
-                txtId.text = "#${adapterPosition + 1}"
+                txtId.text = "#${item.id}"
                 loadPokemonImage(item, ivImage)
                 newsContainer.setOnClickListener {
                     itemClickListener(item)

@@ -5,5 +5,4 @@ import com.ashok.domain.ApiResult
 
 interface PokemonRemoteDataSource {
     suspend fun fetchPokemonCollection(): ApiResult<PokemonEntity>
-    suspend fun getPokemonImageUrl(id: Int): String
 }

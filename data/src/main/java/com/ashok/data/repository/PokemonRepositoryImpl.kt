@@ -3,6 +3,7 @@ package com.ashok.data.repository
 import com.ashok.data.di.DefaultDispatcher
 import com.ashok.data.entity.mapper.toPokemonModel
 import com.ashok.data.source.remote.PokemonRemoteDataSource
+import com.ashok.data.util.DataUtil
 import com.ashok.domain.ApiResult
 import com.ashok.domain.entity.PokemonModel
 import com.ashok.domain.repository.PokemonRepository
@@ -19,10 +20,11 @@ class PokemonRepositoryImpl @Inject constructor(
 
     override suspend fun fetchPokemonCollection(): Flow<ApiResult<List<PokemonModel>>> {
         return flowOf(remoteDataSource.fetchPokemonCollection().suspendMap { pokemonEntity ->
-            pokemonEntity.results?.mapIndexed { index, result ->
+            pokemonEntity.results?.map { result ->
                 val updatedList = withContext(defaultDispatcher) {
-                    val url = remoteDataSource.getPokemonImageUrl(index + 1)
-                    result.toPokemonModel(url)
+                    val id = DataUtil.getPokemonIdFromUrl(result.url)
+                    val url = DataUtil.getPokemonImageUrlForId(id)
+                    result.toPokemonModel(id, url)
                 }
                 updatedList
             } ?: emptyList()
