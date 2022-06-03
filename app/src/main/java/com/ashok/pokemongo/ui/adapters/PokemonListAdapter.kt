@@ -29,10 +29,9 @@ class PokemonListAdapter constructor(val itemClickListener: (PokemonModel) -> Un
         RecyclerView.ViewHolder(binding.root) {
 
         fun bindData() {
-            val item = currentList[adapterPosition]
+            val item = currentList[bindingAdapterPosition]
 
             with(binding) {
-                val index = adapterPosition + 1
                 txtName.text = StringBuilder().append(item.name).toString()
                 txtId.text = "#${item.id}"
                 loadPokemonImage(item, ivImage)
