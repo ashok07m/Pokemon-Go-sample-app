@@ -15,17 +15,17 @@ abstract class BaseViewModel(
     private val appContext: Context,
 ) : ViewModel() {
 
-    protected val _viewStateResult = MutableLiveData<ViewStateResult>()
-    val viewStateResult: LiveData<ViewStateResult> = _viewStateResult
+    private val _viewLoadingStateResult = MutableLiveData<ViewStateResult>()
+    val viewLoadingStateResult: LiveData<ViewStateResult> = _viewLoadingStateResult
 
 
     protected suspend fun <T> getApiResponse(
         call: suspend () -> Flow<ApiResult<T>>
     ): Flow<ApiResult<T>> {
-        _viewStateResult.value = ViewStateResult.Loading(true)
+        _viewLoadingStateResult.value = ViewStateResult.Loading(true)
         delay(DELAY_INTERVAL) // temporary network delay
         var response = call.invoke()
-        _viewStateResult.value = ViewStateResult.Loading(false)
+        _viewLoadingStateResult.value = ViewStateResult.Loading(false)
         return response
     }
 

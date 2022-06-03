@@ -1,8 +1,9 @@
-package com.ashok.data.entity
+package com.ashok.data.entity.response.pokemondetail
+
 
 import com.google.gson.annotations.SerializedName
 
-data class Result(
+data class Pokedex(
     @SerializedName("name")
     val name: String?,
     @SerializedName("url")

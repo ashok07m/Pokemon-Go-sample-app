@@ -13,12 +13,6 @@ sealed class ApiResult<T>(
         val exception: Exception
     ) : ApiResult<T>(null, exception)
 
-
-    inline fun <T : Any, R : Any> Flow<ApiResult<T>>.mapState(crossinline transform: suspend (value: T) -> R): Flow<ApiResult<R>> =
-        transform { value ->
-            return@transform emit(value.suspendMap(transform))
-        }
-
     suspend inline fun <R : Any> suspendMap(transform: suspend (T) -> R): ApiResult<R> {
         return when (this) {
             is Error -> Error(this.exception)

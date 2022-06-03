@@ -28,16 +28,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
                 adapter = pokemonListAdapter
             }
 
-            viewModel.viewStateResult.observe(viewLifecycleOwner) { state ->
+            viewModel.pokemonListResult.observe(viewLifecycleOwner) { state ->
                 when (state) {
-                    is ViewStateResult.Loading -> {
-                        if (state.isLoading) {
-                            viewProgress.progressBar.visibility = View.VISIBLE
-                        } else {
-                            swipeRefresh.isRefreshing = false
-                            viewProgress.progressBar.visibility = View.GONE
-                        }
-                    }
                     is ViewStateResult.Success<*> -> {
                         val data = state.data
                         if (data is List<*>) {
@@ -50,6 +42,20 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
                             message = state.errorMsg,
                             action = { getPokemonList() })
                     }
+                    else -> {}
+                }
+            }
+            viewModel.viewLoadingStateResult.observe(viewLifecycleOwner) { state ->
+                when (state) {
+                    is ViewStateResult.Loading -> {
+                        if (state.isLoading) {
+                            viewProgress.progressBar.visibility = View.VISIBLE
+                        } else {
+                            swipeRefresh.isRefreshing = false
+                            viewProgress.progressBar.visibility = View.GONE
+                        }
+                    }
+                    else -> {}
                 }
             }
         }
@@ -59,7 +65,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
      * Navigates to [DetailsFragment]
      */
     private fun onItemClicked(pokemonModel: PokemonModel) {
-        val action = MainFragmentDirections.actionMainFragmentToDetailFragment(pokemonModel)
+        val action = MainFragmentDirections.actionMainFragmentToDetailFragment(pokemonModel.id)
         findNavController().navigate(action)
     }
 

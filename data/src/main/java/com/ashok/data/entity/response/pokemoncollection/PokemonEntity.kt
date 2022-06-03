@@ -1,4 +1,4 @@
-package com.ashok.data.entity
+package com.ashok.data.entity.response.pokemoncollection
 
 import com.google.gson.annotations.SerializedName
 

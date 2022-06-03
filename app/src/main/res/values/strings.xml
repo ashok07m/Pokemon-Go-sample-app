@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">PokemonGo</string>
+    <string name="symbol_bullet">\u25CF</string>
     <string name="label_pokemon">Pokemon</string>
     <string name="label_detail">Detail</string>
     <string name="label_retry">Retry</string>
     <string name="error_no_internet">No internet available</string>
     <string name="error_unable_to_load">Unable to fetch data from server. try again.</string>
+    <string name="label_characteristics">Characteristics</string>
+    <string name="label_capture_rate_diff">Capture rate difference</string>
+    <string name="label_evolves_to">Evolves to species</string>
 </resources>

@@ -17,7 +17,7 @@
         android:name="com.ashok.pokemongo.ui.details.DetailsFragment"
         android:label="@string/label_detail" >
         <argument
-            android:name="pokemon_info"
-            app:argType="com.ashok.domain.entity.PokemonModel" />
+            android:name="pokemonId"
+            app:argType="integer" />
     </fragment>
 </navigation>

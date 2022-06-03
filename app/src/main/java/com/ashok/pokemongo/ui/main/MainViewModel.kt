@@ -1,6 +1,8 @@
 package com.ashok.pokemongo.ui.main
 
 import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ashok.domain.ApiResult
 import com.ashok.domain.interactor.GetPokemonListUseCase
@@ -17,22 +19,25 @@ class MainViewModel @Inject constructor(
     private val getPokemonListUseCase: GetPokemonListUseCase
 ) : BaseViewModel(appContext) {
 
+    private val _pokemonListResult = MutableLiveData<ViewStateResult>()
+    val pokemonListResult: LiveData<ViewStateResult> = _pokemonListResult
+
     init {
         getPokemonList()
     }
 
     fun getPokemonList(isForceFetch: Boolean = false) =
         viewModelScope.launch {
-            if (viewStateResult.value !is ViewStateResult.Success<*> || isForceFetch) {
+            if (_pokemonListResult.value !is ViewStateResult.Success<*> || isForceFetch) {
                 val response = getApiResponse { getPokemonListUseCase.invoke() }
                 response.collect { result ->
                     when (result) {
                         is ApiResult.Success -> {
-                            _viewStateResult.value = ViewStateResult.Success(result.data)
+                            _pokemonListResult.value = ViewStateResult.Success(result.data)
                         }
                         is ApiResult.Error -> {
                             val errorMessage = getNetworkErrorMessage(result.exception)
-                            _viewStateResult.value = ViewStateResult.Error(errorMessage)
+                            _pokemonListResult.value = ViewStateResult.Error(errorMessage)
                         }
                     }
                 }
