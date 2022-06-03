@@ -3,17 +3,15 @@ package com.ashok.pokemongo.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ashok.domain.entity.PokemonModel
 import com.ashok.pokemongo.databinding.ViewPokemonItemBinding
 import com.ashok.pokemongo.ui.utils.AppUtil
 
 class PokemonListAdapter constructor(val itemClickListener: (PokemonModel) -> Unit) :
-    ListAdapter<PokemonModel, PokemonListAdapter.ViewHolder>(ItemsDiffCallback) {
-
-    override fun getItemCount(): Int = currentList.size
+    PagingDataAdapter<PokemonModel, PokemonListAdapter.ViewHolder>(ItemsDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ViewPokemonItemBinding
@@ -29,16 +27,18 @@ class PokemonListAdapter constructor(val itemClickListener: (PokemonModel) -> Un
         RecyclerView.ViewHolder(binding.root) {
 
         fun bindData() {
-            val item = currentList[bindingAdapterPosition]
-
-            with(binding) {
-                txtName.text = StringBuilder().append(item.name).toString()
-                txtId.text = "#${item.id}"
-                loadPokemonImage(item, ivImage)
-                newsContainer.setOnClickListener {
-                    itemClickListener(item)
+            val item = getItem(bindingAdapterPosition)
+            item?.let {
+                with(binding) {
+                    val id = bindingAdapterPosition + 1
+                    txtName.text = StringBuilder().append(item.name).append("\n#$id").toString()
+                    loadPokemonImage(item, ivImage)
+                    newsContainer.setOnClickListener {
+                        itemClickListener(item)
+                    }
                 }
             }
+
         }
     }
 

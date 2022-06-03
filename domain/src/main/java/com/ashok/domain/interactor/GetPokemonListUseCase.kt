@@ -1,6 +1,6 @@
 package com.ashok.domain.interactor
 
-import com.ashok.domain.ApiResult
+import androidx.paging.PagingData
 import com.ashok.domain.entity.PokemonModel
 import com.ashok.domain.repository.PokemonRepository
 import kotlinx.coroutines.flow.Flow
@@ -8,8 +8,8 @@ import javax.inject.Inject
 
 class GetPokemonListUseCase @Inject constructor(private val pokemonRepository: PokemonRepository) {
 
-    suspend operator fun invoke(): Flow<ApiResult<List<PokemonModel>>> {
-        return pokemonRepository.fetchPokemonCollection()
+    operator fun invoke(): Flow<PagingData<PokemonModel>> {
+        return pokemonRepository.loadPokemonList()
     }
 
 }

@@ -29,7 +29,7 @@ abstract class BaseViewModel(
         return response
     }
 
-    protected fun getNetworkErrorMessage(exception: Exception): String {
+    fun getNetworkErrorMessage(exception: Exception): String {
         val errorMessage = if (exception is IOException) {
             appContext.getString(R.string.error_no_internet)
         } else {

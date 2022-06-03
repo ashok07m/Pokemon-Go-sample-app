@@ -1,11 +1,14 @@
 package com.ashok.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.ashok.data.di.DefaultDispatcher
 import com.ashok.data.entity.mapper.toPokemonDetailModel
 import com.ashok.data.entity.mapper.toPokemonEvolutionModel
-import com.ashok.data.entity.mapper.toPokemonModel
 import com.ashok.data.extension.mapState
-import com.ashok.data.source.remote.PokemonRemoteDataSource
+import com.ashok.data.source.api.PokemonApiService
+import com.ashok.data.source.remote.PokemonRemoteDataSourceImpl
 import com.ashok.domain.ApiResult
 import com.ashok.domain.entity.PokemonDetailModel
 import com.ashok.domain.entity.PokemonEvolutionModel
@@ -19,17 +22,9 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class PokemonRepositoryImpl @Inject constructor(
-    private val remoteDataSource: PokemonRemoteDataSource,
+    private val remoteDataSource: PokemonRemoteDataSourceImpl,
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
 ) : PokemonRepository {
-
-    override suspend fun fetchPokemonCollection(): Flow<ApiResult<List<PokemonModel>>> {
-        return flowOf(remoteDataSource.fetchPokemonCollection().suspendMap { pokemonEntity ->
-            pokemonEntity.results?.map { result ->
-                transformObject { result.toPokemonModel() }
-            } ?: emptyList()
-        })
-    }
 
     override suspend fun fetchPokemonDetail(id: Int): Flow<ApiResult<PokemonDetailModel>> {
         return flowOf(remoteDataSource.fetchPokemonDetail(id).suspendMap { pokemonDetailEntity ->
@@ -49,6 +44,16 @@ class PokemonRepositoryImpl @Inject constructor(
                 }
             }
         )
+    }
+
+    override fun loadPokemonList(): Flow<PagingData<PokemonModel>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = PokemonApiService.PAGE_DEFAULT_SIZE,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { remoteDataSource }
+        ).flow
     }
 
     private suspend fun <T> transformObject(call: suspend () -> T): T {

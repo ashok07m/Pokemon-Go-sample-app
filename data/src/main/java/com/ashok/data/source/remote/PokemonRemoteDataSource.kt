@@ -6,7 +6,7 @@ import com.ashok.data.entity.response.pokemondetail.PokemonDetailEntity
 import com.ashok.domain.ApiResult
 
 interface PokemonRemoteDataSource {
-    suspend fun fetchPokemonCollection(): ApiResult<PokemonEntity>
+    suspend fun fetchPokemonCollection(offset: Int, limit: Int): ApiResult<PokemonEntity>
     suspend fun fetchPokemonDetail(id: Int): ApiResult<PokemonDetailEntity>
     suspend fun fetchPokemonEvolutionChain(id: Int): ApiResult<PokemonEvolutionChainEntity>
 }
