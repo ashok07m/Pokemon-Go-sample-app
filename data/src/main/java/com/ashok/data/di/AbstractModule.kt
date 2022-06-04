@@ -22,10 +22,6 @@ abstract class AbstractModule {
 
     @Binds
     @Singleton
-    abstract fun bindPokemonRemoteDataSource(impl: PokemonRemoteDataSourceImpl): PokemonRemoteDataSource
-
-    @Binds
-    @Singleton
     abstract fun bindBookmarksRepository(impl: PokemonRepositoryImpl): PokemonRepository
 
 

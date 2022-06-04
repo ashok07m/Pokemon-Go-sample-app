@@ -40,29 +40,6 @@ class PokemonRemoteDataSourceImpl @Inject constructor(
         return executeRequest { pokemonApiService.getEvolutionChain(id) }
     }
 
-    private suspend fun <T> executeRequest(request: suspend () -> Response<T>): ApiResult<T> {
-        return try {
-            withContext(ioDispatcher) {
-                val response = request.invoke()
-                if (response.isSuccessful) {
-                    val body = response.body()
-                    body?.let { return@withContext ApiResult.Success(it) }
-                }
-                ApiResult.Error(exception = Exception("${response.code()} : ${response.message()}"))
-            }
-        } catch (e: Exception) {
-            ApiResult.Error(exception = e)
-        }
-    }
-
-
-    private suspend fun <T> transformObject(call: suspend () -> T): T {
-        return withContext(defaultDispatcher) {
-            call.invoke()
-        }
-    }
-
-
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PokemonModel> {
 
         var position = params.key ?: STARTING_OFFSET_VALUE
@@ -101,7 +78,25 @@ class PokemonRemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    fun refreshData() {
-        this.invalidate()
+    private suspend fun <T> executeRequest(request: suspend () -> Response<T>): ApiResult<T> {
+        return try {
+            withContext(ioDispatcher) {
+                val response = request.invoke()
+                if (response.isSuccessful) {
+                    val body = response.body()
+                    body?.let { return@withContext ApiResult.Success(it) }
+                }
+                ApiResult.Error(exception = Exception("${response.code()} : ${response.message()}"))
+            }
+        } catch (e: Exception) {
+            ApiResult.Error(exception = e)
+        }
     }
+
+    private suspend fun <T> transformObject(call: suspend () -> T): T {
+        return withContext(defaultDispatcher) {
+            call.invoke()
+        }
+    }
+
 }
