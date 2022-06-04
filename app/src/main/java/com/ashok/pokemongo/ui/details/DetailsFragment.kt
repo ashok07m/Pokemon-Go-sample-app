@@ -67,7 +67,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
                     is ViewStateResult.Error -> {
                         showError(
                             view = binding.coordinatorLayout,
-                            message = state.errorMsg,
+                            message = getString(state.errorMsg),
                             action = { fetchPokemonDetails() })
                     }
                 }
@@ -88,7 +88,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
                     is ViewStateResult.Error -> {
                         showError(
                             view = binding.coordinatorLayout,
-                            message = state.errorMsg,
+                            message = getString(state.errorMsg),
                             action = { fetchPokemonEvolutionInfo() })
                     }
                 }

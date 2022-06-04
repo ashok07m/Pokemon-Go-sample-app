@@ -1,6 +1,5 @@
 package com.ashok.pokemongo.ui.base
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,9 +8,7 @@ import com.ashok.domain.exception.NoConnectivityException
 import com.ashok.pokemongo.R
 import kotlinx.coroutines.flow.Flow
 
-abstract class BaseViewModel(
-    private val appContext: Context,
-) : ViewModel() {
+abstract class BaseViewModel : ViewModel() {
 
     private val _viewLoadingStateResult = MutableLiveData<ViewStateResult>()
     val viewLoadingStateResult: LiveData<ViewStateResult> = _viewLoadingStateResult
@@ -26,11 +23,11 @@ abstract class BaseViewModel(
         return response
     }
 
-    fun getNetworkErrorMessage(exception: Exception): String {
+    fun getNetworkErrorMessage(exception: Exception): Int {
         val errorMessage = if (exception is NoConnectivityException) {
-            appContext.getString(R.string.error_no_internet)
+            R.string.error_no_internet
         } else {
-            appContext.getString(R.string.error_unable_to_load)
+            R.string.error_unable_to_load
         }
         return errorMessage
     }

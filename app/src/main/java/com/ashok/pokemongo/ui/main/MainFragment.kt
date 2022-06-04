@@ -99,7 +99,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             viewModel.getNetworkErrorMessage(e)
         showError(
             view = binding.coordinatorLayout,
-            message = errorMessage,
+            message = getString(errorMessage),
             action = {
                 pokemonListAdapter.retry()
             })

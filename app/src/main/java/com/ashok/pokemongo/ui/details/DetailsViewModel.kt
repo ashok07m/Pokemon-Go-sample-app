@@ -1,6 +1,5 @@
 package com.ashok.pokemongo.ui.details
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -11,16 +10,14 @@ import com.ashok.pokemongo.R
 import com.ashok.pokemongo.ui.base.BaseViewModel
 import com.ashok.pokemongo.ui.base.ViewStateResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    @ApplicationContext val appContext: Context,
     private val getPokemonDetailsUseCase: GetPokemonDetailsUseCase,
     private val getPokemonEvolutionChainUseCase: GetPokemonEvolutionChainUseCase
-) : BaseViewModel(appContext) {
+) : BaseViewModel() {
 
     private val _pokemonDetails: MutableLiveData<ViewStateResult> = MutableLiveData()
     val pokemonDetails: LiveData<ViewStateResult> = _pokemonDetails
