@@ -5,8 +5,6 @@ import androidx.core.net.toUri
 import com.squareup.picasso.Picasso
 
 object AppUtil {
-    const val DELAY_INTERVAL = 1000L
-
     fun loadImageFromUri(resource: String?, image: ImageView) {
         Picasso.get().load(resource?.toUri()).into(image)
     }

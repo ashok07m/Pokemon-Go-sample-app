@@ -1,6 +1,5 @@
 package com.ashok.data.source.remote
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.ashok.data.di.DefaultDispatcher
@@ -63,11 +62,6 @@ class PokemonRemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, PokemonModel>): Int? {
-        return state.anchorPosition?.let { anchorPosition ->
-            state.closestPageToPosition(anchorPosition)?.prevKey
-        }
-    }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PokemonModel> {
 
@@ -98,5 +92,16 @@ class PokemonRemoteDataSourceImpl @Inject constructor(
                 LoadResult.Error(response.exception)
             }
         }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, PokemonModel>): Int? {
+        return state.anchorPosition?.let { anchorPosition ->
+            val anchorPage = state.closestPageToPosition(anchorPosition)
+            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
+        }
+    }
+
+    fun refreshData() {
+        this.invalidate()
     }
 }

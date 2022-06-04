@@ -5,11 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ashok.domain.ApiResult
+import com.ashok.domain.exception.NoConnectivityException
 import com.ashok.pokemongo.R
-import com.ashok.pokemongo.ui.utils.AppUtil.DELAY_INTERVAL
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import java.io.IOException
 
 abstract class BaseViewModel(
     private val appContext: Context,
@@ -23,14 +21,13 @@ abstract class BaseViewModel(
         call: suspend () -> Flow<ApiResult<T>>
     ): Flow<ApiResult<T>> {
         _viewLoadingStateResult.value = ViewStateResult.Loading(true)
-        delay(DELAY_INTERVAL) // temporary network delay
         var response = call.invoke()
         _viewLoadingStateResult.value = ViewStateResult.Loading(false)
         return response
     }
 
     fun getNetworkErrorMessage(exception: Exception): String {
-        val errorMessage = if (exception is IOException) {
+        val errorMessage = if (exception is NoConnectivityException) {
             appContext.getString(R.string.error_no_internet)
         } else {
             appContext.getString(R.string.error_unable_to_load)

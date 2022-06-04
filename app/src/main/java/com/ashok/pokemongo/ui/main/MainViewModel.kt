@@ -18,6 +18,13 @@ class MainViewModel @Inject constructor(
     private val getPokemonListUseCase: GetPokemonListUseCase
 ) : BaseViewModel(appContext) {
 
-    fun loadPokemonList(): Flow<PagingData<PokemonModel>> =
-        getPokemonListUseCase.invoke().cachedIn(viewModelScope)
+    lateinit var pagingDataFlow: Flow<PagingData<PokemonModel>>
+
+    init {
+        loadPokemonList()
+    }
+
+    fun loadPokemonList() {
+        pagingDataFlow = getPokemonListUseCase.invoke().cachedIn(viewModelScope)
+    }
 }

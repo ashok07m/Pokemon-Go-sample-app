@@ -30,7 +30,7 @@ class PokemonListAdapter constructor(val itemClickListener: (PokemonModel) -> Un
             val item = getItem(bindingAdapterPosition)
             item?.let {
                 with(binding) {
-                    val id = bindingAdapterPosition + 1
+                    val id = item.id
                     txtName.text = StringBuilder().append(item.name).append("\n#$id").toString()
                     loadPokemonImage(item, ivImage)
                     newsContainer.setOnClickListener {
@@ -49,7 +49,7 @@ class PokemonListAdapter constructor(val itemClickListener: (PokemonModel) -> Un
 
     object ItemsDiffCallback : DiffUtil.ItemCallback<PokemonModel>() {
         override fun areItemsTheSame(oldItem: PokemonModel, newItem: PokemonModel): Boolean {
-            return oldItem.name == newItem.name
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: PokemonModel, newItem: PokemonModel): Boolean {
