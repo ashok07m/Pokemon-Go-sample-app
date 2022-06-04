@@ -8,14 +8,14 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk versions.androidCompileSdkVersion
 
     defaultConfig {
         applicationId "com.ashok.pokemongo"
-        minSdk 23
-        targetSdk 31
+        minSdk versions.androidMinSdkVersion
+        targetSdk versions.androidTargetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -45,36 +45,36 @@ dependencies {
     implementation project(':domain')
     implementation project(':data')
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.6.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation deps.coreKtx
+    implementation deps.appcompat
+    implementation deps.material
+    implementation deps.constraintLayout
+    implementation deps.legacySupport
 
-    // Picasso for image loading
-    implementation 'com.squareup.picasso:picasso:2.8'
+    // picasso for image loading
+    implementation deps.picasso
 
-    // Hilt DI
-    implementation "com.google.dagger:hilt-android:2.41"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    kapt "com.google.dagger:hilt-compiler:2.41"
+    // hilt DI
+    implementation deps.hilt.hiltAndroid
+    kapt deps.hilt.compiler
 
-    // Lifecycle
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    // lifecycle
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.livedata
+    implementation deps.lifecycle.viewmodel
 
     // fragment-ktx for kotlin extensions
-    implementation "androidx.fragment:fragment-ktx:1.4.1"
+    implementation deps.fragment
 
     // navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:2.4.2"
-    implementation "androidx.navigation:navigation-ui-ktx:2.4.2"
+    implementation deps.navigation.fragment
+    implementation deps.navigation.ui
 
     // paging
-    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+    implementation deps.paging
 
     // testing
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    testImplementation deps.testing.junit
+    androidTestImplementation deps.testing.androidx.junit
+    androidTestImplementation deps.testing.androidx.espresso
 }

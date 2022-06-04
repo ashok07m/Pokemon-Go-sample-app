@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk versions.androidCompileSdkVersion
 
     defaultConfig {
-        minSdk 23
-        targetSdk 31
+        minSdk versions.androidMinSdkVersion
+        targetSdk versions.androidTargetSdkVersion
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -39,16 +39,16 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation deps.coreKtx
 
     // coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2'
+    implementation deps.coroutineAndroid
 
-    // Hilt DI
-    implementation "com.google.dagger:hilt-android:2.41"
-    kapt "com.google.dagger:hilt-compiler:2.41"
+    // hilt DI
+    implementation deps.hilt.hiltAndroid
+    kapt deps.hilt.compiler
 
     // paging
-    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+    implementation deps.paging
+
 }
