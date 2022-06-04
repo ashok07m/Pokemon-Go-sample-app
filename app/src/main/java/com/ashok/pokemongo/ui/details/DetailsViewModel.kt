@@ -10,12 +10,9 @@ import com.ashok.domain.interactor.GetPokemonEvolutionChainUseCase
 import com.ashok.pokemongo.R
 import com.ashok.pokemongo.ui.base.BaseViewModel
 import com.ashok.pokemongo.ui.base.ViewStateResult
-import com.ashok.pokemongo.ui.mapper.toPokemonDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,10 +37,8 @@ class DetailsViewModel @Inject constructor(
             when (result) {
                 is ApiResult.Success -> {
                     result.suspendMap {
-                        val flavorText = getFormattedDescription(it.flavorText)
-                        val data = it.toPokemonDetail(flavorText)
-                        captureRate1 = data.captureRate
-                        _pokemonDetails.value = ViewStateResult.Success(data)
+                        captureRate1 = it.captureRate
+                        _pokemonDetails.value = ViewStateResult.Success(it)
                     }
                 }
                 is ApiResult.Error -> {
@@ -72,18 +67,6 @@ class DetailsViewModel @Inject constructor(
             }
         }
     }
-
-    private suspend fun getFormattedDescription(flavorText: List<String>) =
-        withContext(Dispatchers.Default) {
-            val stringBuffer = StringBuffer()
-            val symbol = appContext.getString(R.string.symbol_bullet)
-            flavorText.forEachIndexed { index, s ->
-                val str = s.replace("\n", " ")
-                stringBuffer.append("${index + 1}$symbol $str")
-                stringBuffer.append("\n\n")
-            }
-            stringBuffer.toString()
-        }
 
     private fun getCaptureDifference(value1: Int, value2: Int): Pair<Int, Int> {
         val diff = value1 - value2

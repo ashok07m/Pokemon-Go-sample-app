@@ -30,7 +30,9 @@ fun PokemonDetailEntity.toPokemonDetailModel(): PokemonDetailModel {
         imgUrl = url,
         moreInfoUrl = infoUrl,
         captureRate = this.captureRate ?: 0,
-        flavorText = descriptionList?.map { it.flavorText!! }
+        flavorText = descriptionList?.map {
+            it.flavorText!!.replace("\n", " ")
+        }
     )
 }
 

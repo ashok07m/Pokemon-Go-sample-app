@@ -44,6 +44,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="16dp"
+            android:background="@color/grey_bg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtEvolution"
             tools:src="@tools:sample/avatars" />
@@ -63,6 +64,7 @@
             android:id="@+id/ivPokemon2"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:background="@color/grey_bg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/ivPokemon1"
             tools:src="@tools:sample/avatars" />
@@ -103,28 +105,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtPokemon1Name" />
 
-        <ScrollView
-            android:id="@+id/svDescription"
-            android:layout_width="match_parent"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFlavorTextList"
+            android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/txtCaptureRate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtDescription">
+            app:layout_constraintTop_toBottomOf="@+id/txtDescription"
+            tools:itemCount="40"
+            tools:listitem="@layout/view_text_item" />
 
-            <TextView
-                android:id="@+id/txtDescriptionValue"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:typeface="serif"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtDescription"
-                tools:text="flavor text" />
-        </ScrollView>
 
         <TextView
             android:id="@+id/txtCaptureRate"
@@ -138,7 +131,8 @@
             android:typeface="serif"
             app:layout_constraintBottom_toTopOf="@+id/txtCaptureRateValue"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvFlavorTextList" />
 
         <TextView
             android:id="@+id/txtCaptureRateValue"
@@ -152,6 +146,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtCaptureRate"
             tools:text="0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,11 +5,13 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.ashok.domain.entity.PokemonDetailModel
 import com.ashok.domain.entity.PokemonEvolutionModel
 import com.ashok.pokemongo.databinding.FragmentDetailsBinding
+import com.ashok.pokemongo.ui.adapters.DescriptionListAdapter
 import com.ashok.pokemongo.ui.base.BaseFragment
 import com.ashok.pokemongo.ui.base.ViewStateResult
-import com.ashok.pokemongo.ui.mapper.PokemonDetail
 import com.ashok.pokemongo.ui.utils.AppUtil
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,9 +20,20 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
     private val viewModel: DetailsViewModel by viewModels()
     private val safeArgs: DetailsFragmentArgs by navArgs()
     private val pokemonId: Int by lazy { safeArgs.pokemonId }
+    private lateinit var descriptionLisAdapter: DescriptionListAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        descriptionLisAdapter = DescriptionListAdapter(emptyList())
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.rvFlavorTextList.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = descriptionLisAdapter
+        }
 
         with(viewModel) {
             binding.group1.visibility = View.GONE
@@ -45,7 +58,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
                 when (state) {
                     is ViewStateResult.Success<*> -> {
                         when (val data = state.data) {
-                            is PokemonDetail -> {
+                            is PokemonDetailModel -> {
                                 fetchPokemonEvolutionInfo()
                                 showPokemonDetails(data)
                             }
@@ -99,11 +112,11 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
         }
     }
 
-    private fun showPokemonDetails(data: PokemonDetail) {
+    private fun showPokemonDetails(data: PokemonDetailModel) {
         with(binding) {
             txtPokemon1Name.text = data.name
             AppUtil.loadImageFromUri(data.imgUrl, ivPokemon1)
-            txtDescriptionValue.text = data.flavorText
+            descriptionLisAdapter.submitList(data.flavorText)
             group1.visibility = View.VISIBLE
         }
     }
