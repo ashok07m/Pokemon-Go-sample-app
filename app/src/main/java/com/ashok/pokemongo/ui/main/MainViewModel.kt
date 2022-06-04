@@ -24,7 +24,7 @@ class MainViewModel @Inject constructor(
         loadPokemonList()
     }
 
-    fun loadPokemonList() {
+    private fun loadPokemonList() {
         pagingDataFlow = getPokemonListUseCase.invoke().cachedIn(viewModelScope)
     }
 }
