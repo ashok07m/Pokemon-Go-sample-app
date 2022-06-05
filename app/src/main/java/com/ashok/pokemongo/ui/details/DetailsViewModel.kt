@@ -1,5 +1,6 @@
 package com.ashok.pokemongo.ui.details
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -65,7 +66,8 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    private fun getCaptureDifference(value1: Int, value2: Int): Pair<Int, Int> {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun getCaptureDifference(value1: Int, value2: Int): Pair<Int, Int> {
         val diff = value1 - value2
         return if (diff >= 0) {
             Pair(diff, R.color.green)

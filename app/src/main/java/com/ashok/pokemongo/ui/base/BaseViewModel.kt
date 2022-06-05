@@ -1,5 +1,6 @@
 package com.ashok.pokemongo.ui.base
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +15,8 @@ abstract class BaseViewModel : ViewModel() {
     val viewLoadingStateResult: LiveData<ViewStateResult> = _viewLoadingStateResult
 
 
-    protected suspend fun <T> getApiResponse(
+    @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
+    suspend fun <T> getApiResponse(
         call: suspend () -> Flow<ApiResult<T>>
     ): Flow<ApiResult<T>> {
         _viewLoadingStateResult.value = ViewStateResult.Loading(true)

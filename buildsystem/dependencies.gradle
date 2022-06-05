@@ -25,10 +25,15 @@ ext {
             coroutineAndroid         : "1.6.2",
 
             // testing
-            junitVersion             : "4.13.2",
+            testing                  : [
+                    junitVersion    : "4.13.2",
+                    mockitoVersion  : "4.0.0",
+                    coroutineVersion: "1.6.2"
+            ],
             androidxTesting          : [
-                    junit   : "1.1.3",
-                    espresso: "3.4.0"
+                    junitVersion      : "1.1.3",
+                    espressoVersion   : "3.4.0",
+                    coreTestingVersion: "2.1.0"
             ]
     ]
 
@@ -58,11 +63,18 @@ ext {
                     hiltAndroid: ("com.google.dagger:hilt-android:${versions.hiltVersion}"),
                     compiler   : ("com.google.dagger:hilt-compiler:${versions.hiltVersion}"),
             ],
+
             testing          : [
-                    junit   : ("junit:junit:${versions.junitVersion}"),
-                    androidx: [
-                            junit   : ("androidx.test.ext:junit:${versions.androidxTesting.junit}"),
-                            espresso: ("androidx.test.espresso:espresso-core:${versions.androidxTesting.espresso}")
+                    junit        : ("junit:junit:${versions.testing.junitVersion}"),
+                    coroutineTest: ("org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.testing.coroutineVersion}"),
+                    mockito      : [
+                            mockitoKotlin: ("org.mockito.kotlin:mockito-kotlin:${versions.testing.mockitoVersion}"),
+                            mockitoInline: ("org.mockito:mockito-inline:${versions.testing.mockitoVersion}"),
+                    ],
+                    androidx     : [
+                            coreTesting: ("androidx.arch.core:core-testing:${versions.androidxTesting.coreTestingVersion}"),
+                            junit      : ("androidx.test.ext:junit:${versions.androidxTesting.junitVersion}"),
+                            espresso   : ("androidx.test.espresso:espresso-core:${versions.androidxTesting.espressoVersion}"),
                     ]
             ]
     ]

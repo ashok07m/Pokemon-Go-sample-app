@@ -77,4 +77,8 @@ dependencies {
     testImplementation deps.testing.junit
     androidTestImplementation deps.testing.androidx.junit
     androidTestImplementation deps.testing.androidx.espresso
+    testImplementation deps.testing.mockito.mockitoKotlin
+    testImplementation deps.testing.mockito.mockitoInline
+    testImplementation deps.testing.coroutineTest
+    testImplementation deps.testing.androidx.coreTesting
 }
