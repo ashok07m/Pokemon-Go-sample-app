@@ -51,4 +51,10 @@ dependencies {
     // paging
     implementation deps.paging
 
+    // testing
+    testImplementation deps.testing.junit
+    testImplementation deps.testing.mockito.mockitoKotlin
+    testImplementation deps.testing.mockito.mockitoInline
+    testImplementation deps.testing.coroutineTest
+    testImplementation deps.testing.androidx.coreTesting
 }
