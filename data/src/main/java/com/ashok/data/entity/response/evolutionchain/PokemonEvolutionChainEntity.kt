@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 data class PokemonEvolutionChainEntity(
     @SerializedName("baby_trigger_item")
-    val babyTriggerItem: Any?,
+    val babyTriggerItem: Any? = null,
     @SerializedName("chain")
-    val chain: Chain?,
+    val chain: Chain? = null,
     @SerializedName("id")
     val id: Int
 )

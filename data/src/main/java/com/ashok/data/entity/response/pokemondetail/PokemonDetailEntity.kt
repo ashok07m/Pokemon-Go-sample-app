@@ -5,57 +5,57 @@ import com.google.gson.annotations.SerializedName
 
 data class PokemonDetailEntity(
     @SerializedName("base_happiness")
-    val baseHappiness: Int?,
+    val baseHappiness: Int? = 0,
     @SerializedName("capture_rate")
-    val captureRate: Int?,
+    val captureRate: Int? = 0,
     @SerializedName("color")
-    val color: Color?,
+    val color: Color? = null ,
     @SerializedName("egg_groups")
-    val eggGroups: List<EggGroup>?,
+    val eggGroups: List<EggGroup>? = null,
     @SerializedName("evolution_chain")
-    val evolutionChain: EvolutionChain?,
+    val evolutionChain: EvolutionChain? = null,
     @SerializedName("evolves_from_species")
-    val evolvesFromSpecies: Any?,
+    val evolvesFromSpecies: Any? = null,
     @SerializedName("flavor_text_entries")
-    val flavorTextEntries: List<FlavorTextEntry>?,
+    val flavorTextEntries: List<FlavorTextEntry>? = null,
     @SerializedName("form_descriptions")
-    val formDescriptions: List<Any>?,
+    val formDescriptions: List<Any>? = null,
     @SerializedName("forms_switchable")
-    val formsSwitchable: Boolean?,
+    val formsSwitchable: Boolean? = null,
     @SerializedName("gender_rate")
-    val genderRate: Int?,
+    val genderRate: Int? = null,
     @SerializedName("genera")
-    val genera: List<Genera>?,
+    val genera: List<Genera>? = null,
     @SerializedName("generation")
-    val generation: Generation?,
+    val generation: Generation? = null,
     @SerializedName("growth_rate")
-    val growthRate: GrowthRate?,
+    val growthRate: GrowthRate? = null,
     @SerializedName("habitat")
-    val habitat: Habitat?,
+    val habitat: Habitat? = null,
     @SerializedName("has_gender_differences")
-    val hasGenderDifferences: Boolean?,
+    val hasGenderDifferences: Boolean? = null,
     @SerializedName("hatch_counter")
-    val hatchCounter: Int?,
+    val hatchCounter: Int? = null,
     @SerializedName("id")
-    val id: Int?,
+    val id: Int? = null,
     @SerializedName("is_baby")
-    val isBaby: Boolean?,
+    val isBaby: Boolean? = null,
     @SerializedName("is_legendary")
-    val isLegendary: Boolean?,
+    val isLegendary: Boolean? = null,
     @SerializedName("is_mythical")
-    val isMythical: Boolean?,
+    val isMythical: Boolean? = null,
     @SerializedName("name")
-    val name: String?,
+    val name: String? = null,
     @SerializedName("names")
-    val names: List<Name>?,
+    val names: List<Name>? = null,
     @SerializedName("order")
-    val order: Int?,
+    val order: Int? = null,
     @SerializedName("pal_park_encounters")
-    val palParkEncounters: List<PalParkEncounter>?,
+    val palParkEncounters: List<PalParkEncounter>? = null,
     @SerializedName("pokedex_numbers")
-    val pokedexNumbers: List<PokedexNumber>?,
+    val pokedexNumbers: List<PokedexNumber>? = null,
     @SerializedName("shape")
-    val shape: Shape?,
+    val shape: Shape? = null,
     @SerializedName("varieties")
-    val varieties: List<Variety>?
+    val varieties: List<Variety>? = null
 )

@@ -1,5 +1,6 @@
 package com.ashok.data.repository
 
+import androidx.annotation.VisibleForTesting
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -54,7 +55,8 @@ class PokemonRepositoryImpl @Inject constructor(
         ).flow
     }
 
-    private suspend fun <T> transformObject(call: suspend () -> T): T {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    suspend fun <T> transformObject(call: suspend () -> T): T {
         return withContext(defaultDispatcher) {
             call.invoke()
         }
