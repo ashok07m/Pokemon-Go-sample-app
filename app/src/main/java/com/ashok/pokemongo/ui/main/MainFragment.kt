@@ -33,7 +33,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-
+            viewModel.loadPokemonList()
             pokemonList.apply {
                 layoutManager = GridLayoutManager(context, 2)
                 adapter = pokemonListAdapter
