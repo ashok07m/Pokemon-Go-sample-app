@@ -1,5 +1,3 @@
-# Catawiki Android Assignment Solution
-
 ## Screenshots
 <div align="center">
     <img src="https://github.com/AhmedAshrafG/cw-interview-Ashok-Kumar/blob/feat/pokemon_collection/screenshots/loading.png" width="400px"</img>
